@@ -37,6 +37,23 @@ namespace UserRegistrationProblemRegex
             }
 
             Console.ReadLine();
+
+            Console.WriteLine("Enter your email address:");
+            string email = Console.ReadLine();
+
+            bool isValidEmail = ValidateEmail(email);
+
+            if (isValidEmail)
+            {
+                Console.WriteLine("Valid email address.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid email address. Email should have 3 mandatory parts (abc, bl & co) and 2 optional parts (xyz & in) with precise @ and . positions.");
+            }
+
+            Console.ReadLine();
+
         }
     
 
@@ -52,10 +69,19 @@ namespace UserRegistrationProblemRegex
 
         /*As a User need to enter a valid Last Name - Last name starts with Cap and has minimum 3 characters
          */
-        static bool ValidateLastName(string lastName)
+    static bool ValidateLastName(string lastName)
     {
         string pattern = "^[A-Z][a-zA-Z]{2,}$";
         return Regex.IsMatch(lastName, pattern);
     }
-}
+        /*As a User need to enter a valid email
+            - E.g. abc.xyz@bl.co.in - Email has 3 mandatory parts (abc, bl & co) and 2 optional (xyz & in) with
+                precise @ and . positions
+         */
+        static bool ValidateEmail(string email)
+    {
+         string pattern = @"^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$";
+         return Regex.IsMatch(email, pattern);
+    }
+    }
 }
