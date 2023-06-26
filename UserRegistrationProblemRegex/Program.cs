@@ -70,6 +70,26 @@ namespace UserRegistrationProblemRegex
 
             Console.ReadLine();
 
+            Console.WriteLine("Enter your password:");
+            string password = Console.ReadLine();
+
+            bool isValidPassword = ValidatePassword(password);
+
+            if (isValidPassword)
+            {
+                Console.WriteLine("Valid password.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid password. The password must meet the following criteria:\n" +
+                    "1. Minimum 8 characters\n" +
+                    "2. Should have at least 1 uppercase letter\n" +
+                    "3. Should have at least 1 numeric digit\n" +
+                    "4. Should have exactly 1 special character");
+            }
+
+            Console.ReadLine();
+
         }
     
 
@@ -111,6 +131,31 @@ namespace UserRegistrationProblemRegex
             }
 
             return true;
+        }
+        static bool ValidatePassword(string password)
+        {
+            bool isLengthValid = password.Length >= 8;
+            bool hasUppercase = false;
+            bool hasNumericDigit = false;
+            bool hasSpecialCharacter = false;
+
+            foreach (char c in password)
+            {
+                if (char.IsUpper(c))
+                {
+                    hasUppercase = true;
+                }
+                else if (char.IsDigit(c))
+                {
+                    hasNumericDigit = true;
+                }
+                else if (char.IsPunctuation(c) || char.IsSymbol(c))
+                {
+                    hasSpecialCharacter = true;
+                }
+            }
+
+            return isLengthValid && hasUppercase && hasNumericDigit && hasSpecialCharacter;
         }
     }
 }
