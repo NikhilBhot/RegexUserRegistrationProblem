@@ -54,6 +54,22 @@ namespace UserRegistrationProblemRegex
 
             Console.ReadLine();
 
+            Console.WriteLine("Enter your mobile number:");
+            string mobileNumber = Console.ReadLine();
+
+            bool isValidMobileNumber = ValidateMobileNumber(mobileNumber);
+
+            if (isValidMobileNumber)
+            {
+                Console.WriteLine("Valid mobile number.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid mobile number. Mobile number should follow the format: Country code followed by a space and a 10-digit number.");
+            }
+
+            Console.ReadLine();
+
         }
     
 
@@ -83,5 +99,18 @@ namespace UserRegistrationProblemRegex
          string pattern = @"^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$";
          return Regex.IsMatch(email, pattern);
     }
+
+        /*As a User need to follow pre -defined Mobile Format - E.g. 91 9919819801 - Country code 
+         follow by space and 10 digit number
+         */
+        static bool ValidateMobileNumber(string mobileNumber)
+        {
+            if (mobileNumber.Length != 12 || !mobileNumber.StartsWith("91 ") || !long.TryParse(mobileNumber.Substring(3), out _))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
